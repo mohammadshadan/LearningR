@@ -1,15 +1,13 @@
-# R - Mean, Mode, Median
+# R - Mean, Median, Mode
 MOHAMMAD SHADAN  
-January 15, 2017  
-### Measure of Central Tendency
+January 16, 2017  
 
-We will talk about :   
 
-Measure of Central Tendency   
+### Measures of Central Tendency
 
-1. Mean : Average   
-2. Mode : Middle Value   
-3. Median : Most Often    
+1. Mean   : Average   
+2. Median : Middle Value   
+3. Mode   : Most Often    
 
 
 
@@ -39,6 +37,7 @@ sum(x)/length(x)
 ```
 
 ```r
+#?mean
 #Function in base R
 mean(x)
 ```
@@ -58,6 +57,7 @@ sort(x)
 ```
 
 ```r
+#?median
 median(x)
 ```
 
@@ -89,22 +89,6 @@ y
 ## x
 ##  1  2  7  8  9 10 
 ##  1  3  1  2  2  1
-```
-
-```r
-names(y)
-```
-
-```
-## [1] "1"  "2"  "7"  "8"  "9"  "10"
-```
-
-```r
-max(y)
-```
-
-```
-## [1] 3
 ```
 
 ```r
@@ -143,7 +127,7 @@ names(table(x))[table(x)==max(table(x))]
 ## [1] "2" "8"
 ```
 
-Mean, Median and Mode using `mtcars` dataset
+###Mean, Median and Mode using `mtcars` dataset
 
 
 ```r
@@ -164,7 +148,7 @@ head(mtcars)
 x <- mtcars$wt
 ```
 
-Mean
+#### Mean
 
 ```r
 mean(x)
@@ -174,7 +158,7 @@ mean(x)
 ## [1] 3.21725
 ```
 
-Median
+#### Median
 
 ```r
 median(x)
@@ -184,9 +168,9 @@ median(x)
 ## [1] 3.325
 ```
 
+####Mode
 
 ```r
-#Method 1
 y <- table(x)
 y
 ```
@@ -218,10 +202,19 @@ names(table(x))[table(x)==max(table(x))]
 ## [1] "3.44"
 ```
 
+####Mean, Median and Mode using `airquality` dataset  
 
-If the dataset has missing values :
+I am using `airquality` dataset because it has missing values
 
-Airquality Data Set
+
+```r
+#Summary Statistics
+dim(airquality)
+```
+
+```
+## [1] 153   6
+```
 
 ```r
 names(airquality)
@@ -232,6 +225,35 @@ names(airquality)
 ```
 
 ```r
+str(airquality)
+```
+
+```
+## 'data.frame':	153 obs. of  6 variables:
+##  $ Ozone  : int  41 36 12 18 NA 28 23 19 8 NA ...
+##  $ Solar.R: int  190 118 149 313 NA NA 299 99 19 194 ...
+##  $ Wind   : num  7.4 8 12.6 11.5 14.3 14.9 8.6 13.8 20.1 8.6 ...
+##  $ Temp   : int  67 72 74 62 56 66 65 59 61 69 ...
+##  $ Month  : int  5 5 5 5 5 5 5 5 5 5 ...
+##  $ Day    : int  1 2 3 4 5 6 7 8 9 10 ...
+```
+
+```r
+head(airquality)
+```
+
+```
+##   Ozone Solar.R Wind Temp Month Day
+## 1    41     190  7.4   67     5   1
+## 2    36     118  8.0   72     5   2
+## 3    12     149 12.6   74     5   3
+## 4    18     313 11.5   62     5   4
+## 5    NA      NA 14.3   56     5   5
+## 6    28      NA 14.9   66     5   6
+```
+
+```r
+#Column names with missing Values
 names(airquality)[colSums(is.na(airquality)) > 0]
 ```
 
@@ -308,6 +330,18 @@ mean(x)
 ```
 
 ```r
+?mean
+```
+
+```
+## starting httpd help server ...
+```
+
+```
+##  done
+```
+
+```r
 mean(x, na.rm = TRUE)
 ```
 
@@ -334,13 +368,41 @@ median(x, na.rm = TRUE)
 ```
 
 ####Mode
+We will not have issue of removing NA for finding Mode 
 
 ```r
-names(table(x))[table(x)==max(table(x))]
+sort(table(x))
+```
+
+```
+## x
+##   7   8  13  14  19  20  25  27  31  36  37  44  47  48  49  51  59  64 
+##   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1 
+##  65  66  71  77  78  81  82  83  91  95  98  99 101 112 115 118 120 131 
+##   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1 
+## 135 138 145 148 149 150 153 157 167 183 186 187 188 189 192 193 194 197 
+##   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1 
+## 201 203 207 212 213 215 222 224 225 229 230 242 244 248 253 254 256 258 
+##   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1 
+## 260 266 267 269 272 275 276 279 284 285 286 287 290 294 295 299 307 313 
+##   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1 
+## 314 320 323 332 334  24  92 127 137 139 190 191 236 237 250 252 255 264 
+##   1   1   1   1   1   2   2   2   2   2   2   2   2   2   2   2   2   2 
+## 273 274 291 322 175 220 223 238 259 
+##   2   2   2   2   3   3   3   4   4
+```
+
+```r
+names(table(x))[table(x)==max(table(x))]     #x<- airquality$Solar.R
 ```
 
 ```
 ## [1] "238" "259"
+```
+
+```r
+# sort(table(x))
+# sort(table(x, useNA = "always"))
 ```
 
 ####Summary fuctions
@@ -402,6 +464,7 @@ summary(airquality)
 
 
 ```r
+#install.packages("psych")
 library(psych)
 describe(mtcars)
 ```

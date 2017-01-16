@@ -1,20 +1,18 @@
 ---
-title: "R - Mean, Mode, Median"
+title: "R - Mean, Median, Mode"
 author: "MOHAMMAD SHADAN"
-date: "January 15, 2017"
+date: "January 16, 2017"
 output: 
   html_document: 
     keep_md: yes
 ---
-### Measure of Central Tendency
 
-We will talk about :   
 
-Measure of Central Tendency   
+### Measures of Central Tendency
 
-1. Mean : Average   
-2. Mode : Middle Value   
-3. Median : Most Often    
+1. Mean   : Average   
+2. Median : Middle Value   
+3. Mode   : Most Often    
 
 
 ```{r}
@@ -29,6 +27,7 @@ boxplot(x)
 ```{r}
 sum(x)/length(x)
 
+#?mean
 #Function in base R
 mean(x)
 ```
@@ -37,6 +36,7 @@ mean(x)
 ```{r}
 sort(x)
 
+#?median
 median(x)
 ```
 
@@ -50,8 +50,6 @@ x
 #?table
 y <- table(x)
 y
-names(y)
-max(y)
 names(y)[which(y==max(y))]
 
 #or in single line
@@ -64,25 +62,26 @@ sort(x)
 names(table(x))[table(x)==max(table(x))]
 ```
 
-Mean, Median and Mode using `mtcars` dataset
+###Mean, Median and Mode using `mtcars` dataset
 
 ```{r}
 head(mtcars)
 x <- mtcars$wt
 ```
 
-Mean
+#### Mean
 ```{r}
 mean(x)
 ```
 
-Median
+#### Median
 ```{r}
 median(x)
 ```
 
+####Mode
 ```{r}
-#Method 1
+
 y <- table(x)
 y
 names(y)[which(y==max(y))]
@@ -91,12 +90,18 @@ names(y)[which(y==max(y))]
 names(table(x))[table(x)==max(table(x))]
 ```
 
+####Mean, Median and Mode using `airquality` dataset  
 
-If the dataset has missing values :
+I am using `airquality` dataset because it has missing values
 
-Airquality Data Set
 ```{r}
+#Summary Statistics
+dim(airquality)
 names(airquality)
+str(airquality)
+head(airquality)
+
+#Column names with missing Values
 names(airquality)[colSums(is.na(airquality)) > 0]
 
 airquality$Ozone
@@ -109,7 +114,7 @@ x
 ####Mean
 ```{r}
 mean(x)
-
+?mean
 mean(x, na.rm = TRUE)
 ```
 
@@ -121,8 +126,13 @@ median(x, na.rm = TRUE)
 ```
 
 ####Mode
+We will not have issue of removing NA for finding Mode 
 ```{r}
-names(table(x))[table(x)==max(table(x))]
+sort(table(x))
+names(table(x))[table(x)==max(table(x))]     #x<- airquality$Solar.R
+
+# sort(table(x))
+# sort(table(x, useNA = "always"))
 ```
 
 ####Summary fuctions
@@ -136,6 +146,7 @@ summary(airquality)
 ```
 
 ```{r}
+#install.packages("psych")
 library(psych)
 describe(mtcars)
 describe(airquality)
