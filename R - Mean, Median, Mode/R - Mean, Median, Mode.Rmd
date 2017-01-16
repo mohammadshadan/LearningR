@@ -1,0 +1,142 @@
+---
+title: "R - Mean, Mode, Median"
+author: "MOHAMMAD SHADAN"
+date: "January 15, 2017"
+output: 
+  html_document: 
+    keep_md: yes
+---
+### Measure of Central Tendency
+
+We will talk about :   
+
+Measure of Central Tendency   
+
+1. Mean : Average   
+2. Mode : Middle Value   
+3. Median : Most Often    
+
+
+```{r}
+x <- c(8,2,7,1,2,9,8,2,10,9)
+
+#Exploratory Data Analysis
+hist(x)
+boxplot(x)
+```
+
+####Mean : The mean is the average of the numbers
+```{r}
+sum(x)/length(x)
+
+#Function in base R
+mean(x)
+```
+
+####Median : the middle number given the numbers are in order (sorted)
+```{r}
+sort(x)
+
+median(x)
+```
+
+####Mode : The number which appears most often in a set of numbers
+```{r}
+#There is no function in base R to find mode of set of numbers
+x <- c(8,2,7,1,2,9,8,2,10,9)
+
+#Function to find Mode
+x
+#?table
+y <- table(x)
+y
+names(y)
+max(y)
+names(y)[which(y==max(y))]
+
+#or in single line
+names(table(x))[table(x)==max(table(x))]
+
+#Testing if there are two or more numbers with same frequncy
+x <- c(8,2,7,1,2,9,8,2,10,9,8)
+sort(x)
+#Mode
+names(table(x))[table(x)==max(table(x))]
+```
+
+Mean, Median and Mode using `mtcars` dataset
+
+```{r}
+head(mtcars)
+x <- mtcars$wt
+```
+
+Mean
+```{r}
+mean(x)
+```
+
+Median
+```{r}
+median(x)
+```
+
+```{r}
+#Method 1
+y <- table(x)
+y
+names(y)[which(y==max(y))]
+
+#or
+names(table(x))[table(x)==max(table(x))]
+```
+
+
+If the dataset has missing values :
+
+Airquality Data Set
+```{r}
+names(airquality)
+names(airquality)[colSums(is.na(airquality)) > 0]
+
+airquality$Ozone
+airquality$Solar.R
+
+x <- airquality$Solar.R
+table(is.na(x))
+x
+```
+####Mean
+```{r}
+mean(x)
+
+mean(x, na.rm = TRUE)
+```
+
+####Median
+```{r}
+median(x)
+
+median(x, na.rm = TRUE)
+```
+
+####Mode
+```{r}
+names(table(x))[table(x)==max(table(x))]
+```
+
+####Summary fuctions
+
+- summary()    #Base R
+- describe()   #Package `psych`
+
+```{r}
+summary(mtcars)
+summary(airquality)
+```
+
+```{r}
+library(psych)
+describe(mtcars)
+describe(airquality)
+```

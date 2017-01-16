@@ -1,0 +1,21 @@
+---
+title: "R - RStudio"
+author: "MOHAMMAD SHADAN"
+date: "January 13, 2017"
+output: html_document
+---
+
+This is a basic Video about R and R Studio 
+
+- [Download R](https://cran.r-project.org/bin/windows/base/)
+- [Download RStudio](https://www.rstudio.com/products/rstudio/download/)
+- [Download Github Desktop](https://desktop.github.com)
+
+Short Cuts in RStudio
+
+- `Ctrl + L` : Clears the Commant Prompt Window
+- `Ctrl + Shift + C` : Comment and Un-comments lines
+
+```{r}
+
+```

@@ -1,0 +1,167 @@
+---
+title: "R Base Plotting"
+author: "MOHAMMAD SHADAN"
+date: "January 13, 2017"
+output: 
+  html_document: 
+    keep_md: yes
+---
+Basic Video about the base plotting in R
+Length of Video : 5 min
+
+To do any kind of plotting the first thing you need is data.    
+R comes pre-loaded with some data sets for you to practise    
+
+Now how would you know which all data sets you can access without loading it externally ?    
+
+
+```{r}
+data()
+# install.packages("datasets")
+# library(datasets)
+```
+
+I will be using `mtcars` dataset.    
+Load the dataset
+
+```{r}
+data(mtcars)
+```
+
+Summary Statistics
+```{r}
+dim(mtcars)      #dimension
+str(mtcars)      #Internal STRucture
+summary(mtcars)  #Summary
+names(mtcars)    #Column Names
+rownames(mtcars) #Row Names
+dimnames(mtcars) #Row and Column Names together
+head(mtcars)     #Top 6 entries
+tail(mtcars)     #Last 6 entries
+```
+
+Shortcuts
+
+- Ctrl + Enter : Runs the current line
+- Ctrl + L     : Clears the Console
+- Ctrl + Shift + C : Commenting a line or mutliple lines
+
+###Base Plot   
+1. Generic X-Y Plotting (Scatter, Line), plot()
+2. Histogram, hist()
+3. Barplot, barplot()
+4. Boxplot, boxplot()
+
+####Generic X-Y Plotting
+
+```{r}
+head(mtcars)
+plot(mtcars$wt)
+plot(sort(mtcars$wt))
+plot(sort(mtcars$wt, decreasing = TRUE))
+# ?plot
+# ?sort
+plot(mtcars$wt)
+```
+
+Different parameters in plot()
+
+- `type` : type of plot (scatter or line etc.)
+
+- `pch`: the plotting symbol (default is open circle)
+- `cex`: symbol size in the plot, default is cex=1
+
+- `lty`: the line type (default is solid line), can be dashed, dotted, etc.
+- `lwd`: the line width, specified as an integer multiple. lwd=1 is default and 2 is twice as wide.
+
+- `col`: the plotting color, specified as a number, string, or hex code; the colors() function gives  you a vector of colors by name
+
+- `xlab`: character string for the x-axis label
+- `ylab`: character string for the y-axis label
+- `main`: character string for the main label (overall title for the plot)
+- `sub` : a sub title for the plot
+
+First parameter we look into is "type="    
+
+- `p`	    points
+- `l`	    lines
+- `o`    overplotted points and lines
+- `b,c` 	  points (empty if "c") joined by lines
+- `s,S` 	  stair steps
+- `h`	    histogram-like vertical lines
+- `n`	    does not produce any points or lines
+
+
+```{r}
+plot(mtcars$wt, type="p")     # points (default)
+plot(mtcars$wt, type="l")     # lines
+plot(mtcars$wt, type="o")     # points and lines together
+
+plot(mtcars$wt, type="b")     # for both points and lines
+plot(mtcars$wt, type="c")     # for the lines part alone of "b",
+plot(mtcars$wt, type="s")     # stair steps
+plot(mtcars$wt, type="S")     # stair steps
+plot(mtcars$wt, type="h")     # histogram like vertical lines
+plot(mtcars$wt, type="n")     # does not produce any points (???)
+```
+
+Parameter pch and cex. This is for points i.e. default or type="p"
+```{r}
+plot(mtcars$wt)
+plot(mtcars$wt, type="p", pch=1, cex=1)     # default
+plot(mtcars$wt, type="p", pch=2, cex=1) 
+plot(mtcars$wt, type="p", pch=2, cex=2) 
+plot(mtcars$wt, type="p", pch=18, cex=3) 
+plot(mtcars$wt, type="p", pch=18, cex=3, col="red")
+plot(mtcars$wt, type="p", pch=18, cex=3, col="blue")
+```
+
+[Plotting Symbols](http://www.statmethods.net/advgraphs/parameters.html)
+[Colors](http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf)
+
+Parameter lty and lwd. This is for points i.e. default or type="p"
+```{r}
+plot(mtcars$wt, type="l")
+plot(mtcars$wt, type="l", lty=1, lwd=1)     # points
+plot(mtcars$wt, type="l", lty=2, lwd=3)     # points
+plot(mtcars$wt, type="l", lty=3, lwd=3)
+colors()
+```
+[Line Type](http://www.statmethods.net/advgraphs/parameters.html)
+
+###Parameters xlab, ylab, main
+
+```{r}
+#Default Values
+
+plot(mtcars$wt)
+
+plot(mtcars$wt,
+     type="p", #points
+     pch=1,    #point shape
+     cex=1,    #point size
+     lty=1,    #line type
+     lwd=1,    #line width
+     ylab = "Weight",
+     xlab = "Weight Index",
+     main = "Distribution of Car Weight")
+```
+
+Let's Try all together with different parameters
+```{r}
+plot(mtcars$wt,
+     type="o", #points
+     pch=18,    #point shape
+     cex=2,    #point size
+     lty=5,    #line type
+     lwd=2,    #line width
+     col="red",
+     xlab = "Weight",
+     ylab = "Weight Index",
+     main = "Distribution of Car Weight",
+     sub = "Sub Title")
+```
+####Scatter Plot with two variables
+```{r}
+plot(x=mtcars$wt, y=mtcars$mpg)
+```
